@@ -68,10 +68,20 @@ const data = [
     }
 
 ]
+const category = [
+    { id: 1, catName: 'All' },
+    { id: 2, catName: 'Bread' },
+    { id: 3, catName: 'Cereal' },
+    { id: 4, catName: 'Pancake' },
+    { id: 5, catName: 'Coffee' },
+    { id: 6, catName: 'Cappuccino' },
+    { id: 4, catName: 'Tea' },
+
+]
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { dataSource: data[0].gallery, filteredProducts:[] }
+        this.state = { dataSource: data[0].gallery, category: category }
     }
     render() {
         const { dataSource } = this.state
@@ -84,13 +94,13 @@ class Home extends Component {
         }
 
         function searchProduct(itemWord) {
-            var filterProduct 
+            var filterProduct
             filterProduct = dataSource.filter((value) => {
                 return value.ingredient.toLowerCase().includes(itemWord.toLowerCase());
             })
 
-            if(itemWord === 'All') filterProduct= dataSource
-            
+            if (itemWord === 'All') filterProduct = dataSource
+
             console.log(filterProduct)
         }
         return (
@@ -102,13 +112,19 @@ class Home extends Component {
                     <Image source={require('../assets/breakfast/pexels-julian-jagtenberg-103124.jpg')} style={styles.mainImage} />
                 </View>
                 <View style={styles.categories}>
-                    <Text style={styles.categoryText} onPress={() => searchProduct('All')}>All</Text>
+                    {category.map((cat, xid) => (
+                        <View key={xid}>
+                            <Text style={styles.categoryText} onPress={() => searchProduct(cat.catName)}>{cat.catName}</Text>
+                        </View>
+                        
+                    ))}
+{/*                     <Text style={styles.categoryText} onPress={() => searchProduct('All')}>All</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Bread')}>Bread</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Cereal')}>Cereal</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Pancake')}>Pancake</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Coffee')}>Coffee</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Cappuccino')}>Cappuccino</Text>
-                    <Text style={styles.categoryText} onPress={() => searchProduct('Tea')}>Tea</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('Tea')}>Tea</Text> */}
                 </View>
 
                 <View style={styles.gallaryView} >
