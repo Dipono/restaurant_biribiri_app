@@ -6,15 +6,15 @@ const data = [
         id: 1, category: 'breakfast', gallery: [
             {
                 id: 1, image: require('../assets/breakfast/pexels-alexander-mils-2103949.jpg'), itemType: 'cereal', price: '75.00',
-                ingredient: 'granola, peach, plain yoghurt'
+                ingredient: 'granola, peach, plain yoghurt, cereal'
             },
             {
                 id: 2, image: require('../assets/breakfast/pexels-julian-jagtenberg-103124.jpg'), itemType: 'Pancake', price: '70.00',
-                ingredient: 'honey , strawberry'
+                ingredient: 'honey , strawberry, pancake'
             },
             {
                 id: 3, image: require('../assets/breakfast/pexels-pixabay-414555.jpg'), itemType: 'Cappuccino', price: '55.00',
-                ingredient: 'Milk, cappaccino, scones'
+                ingredient: 'Milk, cappaccino, scones, cappuccino'
             },
         ]
     },
@@ -71,15 +71,27 @@ const data = [
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { dataSource: data[0].gallery }
+        this.state = { dataSource: data[0].gallery, filteredProducts:[] }
     }
     render() {
+        const { dataSource } = this.state
         function addToCart(data) {
             //alert('added to cart')
             var date = new Date()
             //console.log(date.getTime())
             data.id = date.getTime()
             console.log(data)
+        }
+
+        function searchProduct(itemWord) {
+            var filterProduct 
+            filterProduct = dataSource.filter((value) => {
+                return value.ingredient.toLowerCase().includes(itemWord.toLowerCase());
+            })
+
+            if(itemWord === 'All') filterProduct= dataSource
+            
+            console.log(filterProduct)
         }
         return (
             <View>
@@ -90,12 +102,13 @@ class Home extends Component {
                     <Image source={require('../assets/breakfast/pexels-julian-jagtenberg-103124.jpg')} style={styles.mainImage} />
                 </View>
                 <View style={styles.categories}>
-                    <Text style={styles.categoryText}>Bread</Text>
-                    <Text style={styles.categoryText}>Cereal</Text>
-                    <Text style={styles.categoryText}>Pancake</Text>
-                    <Text style={styles.categoryText}>Coffee</Text>
-                    <Text style={styles.categoryText}>Cappuccino</Text>
-                    <Text style={styles.categoryText}>Tea</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('All')}>All</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('Bread')}>Bread</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('Cereal')}>Cereal</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('Pancake')}>Pancake</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('Coffee')}>Coffee</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('Cappuccino')}>Cappuccino</Text>
+                    <Text style={styles.categoryText} onPress={() => searchProduct('Tea')}>Tea</Text>
                 </View>
 
                 <View style={styles.gallaryView} >
