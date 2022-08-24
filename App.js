@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './components/Home'
+import Cart from './components/cart';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -14,8 +14,8 @@ export default function App() {
           headerShown: false
         }}>
         <Stack.Screen
-          name="home"
-          component={Home}
+          name="cart"
+          component={Cart}
         />
       </Stack.Navigator>
     </NavigationContainer>
