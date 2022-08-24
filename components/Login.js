@@ -10,14 +10,13 @@ import {
     Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 
 
-// import { AuthContext } from '../components/context';
-// import Users from '../model/users';
+
 
 const SignInScreen = ({navigation}) => {
 
@@ -32,7 +31,6 @@ const SignInScreen = ({navigation}) => {
 
     const { colors } = useTheme();
 
-    // const { signIn } = React.useContext(AuthContext);
 
     const textInputChange = (val) => {
         if( val.trim().length >= 4 ) {
@@ -113,7 +111,7 @@ const SignInScreen = ({navigation}) => {
 
     return (
       <View style={styles.container}>
-          <StatusBar backgroundColor='#009387' barStyle="light-content"/>
+          <StatusBar backgroundColor='#000000' barStyle="light-content"/>
         <View style={styles.header}>
             <Text style={styles.text_header}>Welcome!</Text>
         </View>
@@ -211,17 +209,19 @@ const SignInScreen = ({navigation}) => {
             </TouchableOpacity>
             <View style={styles.button}>
                 <TouchableOpacity
-                    style={styles.signIn}
+                    style={[styles.signIn, {
+                        borderColor: '#009387',
+                        borderWidth: 1,
+                        marginTop: 15
+                    }]}
                     onPress={() => {loginHandle( data.username, data.password )}}
+                    
                 >
-                <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
-                    style={styles.signIn}
-                >
+                
                     <Text style={[styles.textSign, {
-                        color:'#fff'
+                        color:'#009387'
                     }]}>Sign In</Text>
-                </LinearGradient>
+               
                 </TouchableOpacity>
 
                 <TouchableOpacity
