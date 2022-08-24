@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './components/Home'
-import AddFood from './components/Admin/add_food'
+import FullDisplay from './components/FullDisplay'
 
 const Stack = createNativeStackNavigator();
 
@@ -15,13 +14,9 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
-        {/* <Stack.Screen
-          name="home"
-          component={Home}
-        /> */}
         <Stack.Screen
-          name="add_food"
-          component={AddFood}
+          name="fullDisplay"
+          component={FullDisplay}
         />
       </Stack.Navigator>
     </NavigationContainer>
