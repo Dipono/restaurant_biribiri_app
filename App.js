@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home'
+import Register from './components/Register'
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -13,13 +15,16 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
-        <Stack.Screen
-          name="home"
-          component={Home}
+       <Stack.Screen
+          name="register"
+        component={Register}
         />
+
       </Stack.Navigator>
+
     </NavigationContainer>
   );
+
 }
 
 const styles = StyleSheet.create({
