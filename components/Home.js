@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { displayProduct } from './redux/restaurentGallery'
+import { displayProduct} from '.'
 class Home extends Component {
 
     constructor(props) {
@@ -11,7 +12,7 @@ class Home extends Component {
     }
 
     async allProfucts(){
-        
+
     }
 
     render() {
