@@ -207,6 +207,7 @@ const SignInScreen = ({ navigation }) => {
                 <TouchableOpacity>
                     <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password?</Text>
                 </TouchableOpacity>
+                
                 <View style={styles.button}>
                     <TouchableOpacity
                         style={[styles.signIn, {

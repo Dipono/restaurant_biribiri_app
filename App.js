@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+
 import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Cart from './components/cart';
+import Delivery from './components/Delivery';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -14,8 +15,8 @@ export default function App() {
           headerShown: false
         }}>
         <Stack.Screen
-          name="cart"
-          component={Cart}
+          name="Delivery"
+          component={Delivery}
         />
       </Stack.Navigator>
     </NavigationContainer>
