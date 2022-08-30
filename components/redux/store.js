@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import messageReducer from './login';
+import restaurent_gallery from './restaurentGallery';
 
  const store = configureStore({
   reducer: {
-    message: messageReducer
+    reaturentFood: restaurent_gallery
   }
 });
 export  {store};

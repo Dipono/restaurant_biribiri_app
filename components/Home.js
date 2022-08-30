@@ -2,8 +2,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react';
 import Header from './Header';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMessage} from './redux/login'
+import { displayProduct } from './redux/restaurentGallery'
 class Home extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { resturentProducts: [], category: [] }
+    }
+
+    async allProfucts(){
+        
+    }
 
     render() {
 
