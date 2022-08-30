@@ -6,8 +6,10 @@ import {
     TextInput,
     StyleSheet,
     StatusBar,
-    ScrollView
+    ScrollView,
+    Image
 } from 'react-native';
+import SearchBar from './SearchBar';
 
 function Delivery() {
     return (
@@ -20,20 +22,13 @@ function Delivery() {
             <View style={styles.body}>
                 <Text style={styles.text_body}>Enter your address or select one below to customize your shopping experience. This way, you'll only see what's available in your area.</Text>
             </View>
-            <View style={styles.address}>
-                <TextInput
-                    placeholder="Start typing your street address.."
-                    placeholderTextColor="#666666"
-                    style={[styles.textInput, {
-                        color: 'black'
-                    }]}
 
-
-                />
-            </View>
+            <SearchBar />
             <View style={styles.saved}>
                 <Text style={styles.text_saved}>To see your saved addresses Sign In</Text>
             </View>
+
+
 
             <View style={styles.button}>
                 <TouchableOpacity
@@ -95,9 +90,9 @@ const styles = StyleSheet.create({
     text_saved: {
         textAlign: 'center',
         marginBottom: -200,
-        
+
     },
-    
+
     checkOut: {
         width: '100%',
         height: 50,
@@ -107,7 +102,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgrey',
 
     },
-    address:{
+    address: {
         marginTop: 150,
         backgroundColor: 'lightgrey',
         marginLeft: 20,
@@ -115,15 +110,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         height: 35
+    },
+    img: {
+        height: 0
     }
 
 });
 
-
-//text_address: {
-    //     bordoer: 1,
-    //     marginBottom: 100
-    // },
-    // address: {
-    //     marginBottom: 500
-    // },
