@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home'
 import { Provider } from 'react-redux';
 import { store } from './components/redux/store';
+import FullDisplay from './components/FullDisplay'
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
