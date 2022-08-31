@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Image, ScrollView, FlatList } from 'react-native';
 import React, { Component } from 'react';
+import { db } from './firebase';
+import { collection, getDocs, query } from 'firebase/firestore'
 
 const data = [
     {
@@ -83,7 +85,6 @@ class Home extends Component {
         super(props);
         this.state = { dataSource: data[0].gallery, category: [], dataGallery:[] }
     }
-
     async allProfucts() {
         const dbRef = collection(db, 'foodType')
 
@@ -93,15 +94,21 @@ class Home extends Component {
         category.map(async (elem) => {
             const subCollectRef = collection(db, `foodType/${elem.id}/gallery`);
             const foodDetails = await getDocs(subCollectRef);
-            const gallery = foodDetails.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            const gallery = foodDetails.docs.map((doc) => ({ ...doc.data(), id: doc.id, category:elem }));
             this.setState({ dataGallery: gallery })
         })
     }
 
+    selectedProduct(item){
+        var filterProduct;
+        // filterProduct = this.state.dataGallery.filter((value) =>{
+        //     return value.
+        // })
+    }
     render() {
         this.allProfucts();
 
-        const { dataSource } = this.state
+        const { dataSource, dataGallery } = this.state
         function addToCart(data) {
             //alert('added to cart')
             var date = new Date()
@@ -117,8 +124,8 @@ class Home extends Component {
             })
 
             if (itemWord === 'All') filterProduct = dataSource
-
-            console.log(filterProduct)
+            console.log(dataGallery)
+            // console.log(filterProduct)
         }
         return (
             <View>
