@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image, Modal, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
+import Cart from './cart'
 class Header extends Component {
     constructor(props) {
         super(props)
@@ -36,12 +37,15 @@ class Header extends Component {
                 <Modal transparent={true} visible={this.state.openMenu}>
                     <View style={styles.modal}>
                         <Text>menu</Text>
+                        <Text onPress={() =>this.setState({ openMenu: false })} style={styles.cancelModal}>X</Text>
                     </View>
                     
                 </Modal>
                 <Modal transparent={true} visible={this.state.openCart}>
                     <View style={styles.modal}>
                         <Text>cart</Text>
+                        <Text onPress={() =>this.setState({ openCart: false })} style={styles.cancelModal}>X</Text>
+                        <Cart />
                     </View>
                     
                 </Modal>
@@ -86,6 +90,12 @@ const styles = StyleSheet.create({
     modal: {
         backgroundColor: 'grey',
         flex: 1
+    },
+    cancelModal: {
+        textAlign: 'right',
+        marginRight: 5,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 })
 
