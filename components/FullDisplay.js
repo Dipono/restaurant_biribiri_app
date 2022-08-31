@@ -81,9 +81,26 @@ const category = [
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { dataSource: data[0].gallery, category: category }
+        this.state = { dataSource: data[0].gallery, category: [], dataGallery:[] }
     }
+
+    async allProfucts() {
+        const dbRef = collection(db, 'foodType')
+
+        const data = await getDocs(dbRef);
+        const category = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        this.setState({ category: category })
+        category.map(async (elem) => {
+            const subCollectRef = collection(db, `foodType/${elem.id}/gallery`);
+            const foodDetails = await getDocs(subCollectRef);
+            const gallery = foodDetails.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            this.setState({ dataGallery: gallery })
+        })
+    }
+
     render() {
+        this.allProfucts();
+
         const { dataSource } = this.state
         function addToCart(data) {
             //alert('added to cart')
