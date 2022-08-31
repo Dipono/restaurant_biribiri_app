@@ -1,10 +1,28 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import React, { Component } from 'react';
+import Header from './Header';
+import NavBar from './NavBar';
+import ResaurantItems from './ResaurantItems';
 class Home extends Component {
-    render () {
+
+  
+
+    render() {
+        // this.allProfucts()
         return (
-            <Text>Hello World!</Text>
+            <View>
+                <Header></Header>
+                <Image source={require("../assets/images/Breward.jpg")} style={{width:"100%",height:180}} />
+                <NavBar/>
+                <ResaurantItems/>
+
+
+            </View>
+
+
         )
     }
 }
+
+
 export default Home;
