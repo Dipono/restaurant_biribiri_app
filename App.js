@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home'
+import Header from './components/Header'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -13,9 +14,13 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="home"
           component={Home}
+        /> */}
+        <Stack.Screen
+          name="header"
+          component={Header}
         />
       </Stack.Navigator>
     </NavigationContainer>
