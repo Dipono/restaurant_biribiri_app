@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Delivery from './components/Delivery';
+import SignInScreen from './components/Home';
+import SignUpScreen from './components/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,8 +17,8 @@ export default function App() {
           headerShown: false
         }}>
         <Stack.Screen
-          name="Delivery"
-          component={Delivery}
+          name="SignUpScreen"
+          component={SignUpScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
