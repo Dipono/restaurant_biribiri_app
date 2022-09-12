@@ -30,6 +30,7 @@
     "react-native-select-dropdown": "^2.0.4",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "0.17.7",
+    "react-navigation": "^4.4.4",
     "react-redux": "^8.0.2"
   },
   "devDependencies": {

@@ -1,5 +1,10 @@
 import { StyleSheet, Text, View, Image, ScrollView, FlatList } from 'react-native';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { addedToCart } from './redux/restaurentGallery'
+import {increment, amountIncrement } from './redux/counter';
+import { useDispatch, useSelector } from 'react-redux';
+import Header from './Header';
+import NavBar from './NavBar';
 
 const data = [
     {
@@ -78,86 +83,82 @@ const category = [
     { id: 4, catName: 'Tea' },
 
 ]
-class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { dataSource: data[0].gallery, category: category }
+function FullDisplay({route}) {
+
+    const {data} = route.params;
+    const [dataSource] = useState(data)
+
+    const dispatch = useDispatch();
+
+    function addToCart(data) {
+        dispatch(addedToCart(data))
+        dispatch(increment())
+		dispatch(amountIncrement(data.price))
     }
-    render() {
-        const { dataSource } = this.state
-        function addToCart(data) {
-            //alert('added to cart')
-            var date = new Date()
-            //console.log(date.getTime())
-            data.id = date.getTime()
-            console.log(data)
-        }
 
-        function searchProduct(itemWord) {
-            var filterProduct
-            filterProduct = dataSource.filter((value) => {
-                return value.ingredient.toLowerCase().includes(itemWord.toLowerCase());
-            })
+    function searchProduct(itemWord) {
+        var filterProduct
+        filterProduct = dataSource.filter((value) => {
+            return value.ingredient.toLowerCase().includes(itemWord.toLowerCase());
+        })
 
-            if (itemWord === 'All') filterProduct = dataSource
+        if (itemWord === 'All') filterProduct = dataSource
 
-            console.log(filterProduct)
-        }
-        return (
-            <View>
-                <View style={styles.header}>
-                    <Text>Header</Text>
-                </View>
-                <View style={styles.image}>
-                    <Image source={require('../assets/breakfast/pexels-julian-jagtenberg-103124.jpg')} style={styles.mainImage} />
-                </View>
-                <View style={styles.categories}>
-                    {category.map((cat, xid) => (
-                        <View key={xid}>
-                            <Text style={styles.categoryText} onPress={() => searchProduct(cat.catName)}>{cat.catName}</Text>
-                        </View>
-                        
-                    ))}
-{/*                     <Text style={styles.categoryText} onPress={() => searchProduct('All')}>All</Text>
+        console.log(filterProduct)
+    }
+    return (
+        <View>
+            <Header></Header>
+            <View style={styles.image}>
+                <Image source={dataSource.gallery[0].image} style={styles.mainImage} />
+            </View>
+            <NavBar/>
+            <View style={styles.categories}>
+                {category.map((cat, xid) => (
+                    <View key={xid}>
+                        <Text style={styles.categoryText} onPress={() => searchProduct(cat.catName)}>{cat.catName}</Text>
+                    </View>
+
+                ))}
+                {/*                     <Text style={styles.categoryText} onPress={() => searchProduct('All')}>All</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Bread')}>Bread</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Cereal')}>Cereal</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Pancake')}>Pancake</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Coffee')}>Coffee</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Cappuccino')}>Cappuccino</Text>
                     <Text style={styles.categoryText} onPress={() => searchProduct('Tea')}>Tea</Text> */}
-                </View>
+            </View>
 
-                <View style={styles.gallaryView} >
-                    <ScrollView>
-                        {this.state.dataSource.map((data, xid) => (
-                            <View style={styles.viewItem} key={xid}>
-                                <View style={styles.itemImage}>
-                                    <Image source={data.image} style={styles.singlImageItem} />
-                                </View>
-                                <View style={styles.description}>
-                                    <Text style={styles.price}>R {data.price}</Text>
-                                    <View >
-                                        <Text style={styles.name}>{data.itemType}</Text>
-                                        <Text style={styles.ingredient}>{data.ingredient}</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.addCart} >
-                                    <Text style={styles.addToCart} onPress={() => addToCart(data)}>+</Text>
+            <View style={styles.gallaryView} >
+                <ScrollView>
+                    {dataSource.gallery.map((data, xid) => (
+                        <View style={styles.viewItem} key={xid}>
+                            <View style={styles.itemImage}>
+                                <Image source={data.image} style={styles.singlImageItem} />
+                            </View>
+                            <View style={styles.description}>
+                                <Text style={styles.price}>R {data.price}</Text>
+                                <View >
+                                    <Text style={styles.name}>{data.itemType}</Text>
+                                    <Text style={styles.ingredient}>{data.ingredient}</Text>
                                 </View>
                             </View>
-                        ))}
-                    </ScrollView>
-                </View>
+                            <View style={styles.addCart} >
+                                <Text style={styles.addToCart} onPress={() => addToCart(data)}>+</Text>
+                            </View>
+                        </View>
+                    ))}
+                </ScrollView>
             </View>
-        )
-    }
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-    header: {
-        marginTop: 30,
-        borderWidth: 1,
-    },
+    // header: {
+    //     marginTop: 30,
+    //     borderWidth: 1,
+    // },
     image: {
         marginTop: 30,
         height: 128,
@@ -217,4 +218,4 @@ const styles = StyleSheet.create({
         marginTop: -5
     }
 })
-export default Home;
+export default FullDisplay;

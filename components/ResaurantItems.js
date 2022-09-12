@@ -1,98 +1,101 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-const axios = require('axios')
-
-// import { Image } from 'react-native-web';
-export default class ResaurantItems extends Component {
-    //     const LocalRestaurant = [
-    //         {
-    //         name:"Brewers Family Restaurant & Take Aways",
-    //         image_uri:"https://media-cdn.tripadvisor.com/media/photo-s/1a/b8/46/6d/london-stock.jpg",
-    //         categories:["Burger","Chips"],
-    //         price:"R",
-    //         reviews:875,
-    //         ratings:4.3
-    //     },
-    //         {
-    //         name:"Brewers Family Restaurant & Take Aways",
-    //         image_uri:"https://media-cdn.tripadvisor.com/media/photo-s/1a/b8/46/6d/london-stock.jpg",
-    //         categories:["Burger","Chips"],
-    //         price:"R",
-    //         reviews:875,
-    //         ratings:4.3
-    //     },
-    //         {
-    //         name:"Brewers Family Restaurant & Take Aways",
-    //         image_uri:"https://media-cdn.tripadvisor.com/media/photo-s/1a/b8/46/6d/london-stock.jpg",
-    //         categories:["Burger","Chips"],
-    //         price:"R",
-    //         reviews:875,
-    //         ratings:4.3
-    //     },
-    //         {
-    //         name:"Brewers Family Restaurant & Take Aways",
-    //         image_uri:"https://media-cdn.tripadvisor.com/media/photo-s/1a/b8/46/6d/london-stock.jpg",
-    //         categories:["Burger","Chips"],
-    //         price:"R",
-    //         reviews:875,
-    //         ratings:4.3
-    //     },
-    //         {
-    //         name:"Wimpy",
-    //         image_uri:"https://upload.wikimedia.org/wikipedia/commons/e/ef/Restaurant_N%C3%A4sinneula.jpg",
-    //         categories:["breakfast","burger"],
-    //         price:"R",
-    //         reviews:648,
-    //         ratings:3.8
-    //     },
-    //         {
-    //         name:"Roots Grill Soshanguve",
-    //         image_uri:"https://upload.wikimedia.org/wikipedia/commons/e/ef/Restaurant_N%C3%A4sinneula.jpg",
-    //         categories:["Kota","Chicken"],
-    //         price:"R",
-    //         reviews:15,
-    //         ratings:3.6
-    //     },
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 
-    // ]
-
-
-    constructor(props) {
-        super(props);
-        this.state = { LocalRestaurant: [], LocalRestaurantImages: [], category: [] }
-    }
-    async allProfucts() {
-        var foodArray = []
-        const foodData = await axios.get('https://foodbukka.herokuapp.com/api/v1/menu');
-        this.setState({ LocalRestaurant: foodData.data.Result, LocalRestaurantImages: foodData.data.Result })
-        for (var count = 0; count < foodData.data.Result.length; count++) {
-            foodArray.push(foodData.data.Result[count].images)
-        }
-        this.setState({ LocalRestaurant: foodData.data.Result, LocalRestaurantImages: foodArray })
-
-        console.log(foodArray)
+//
+const data = [
+    {
+        id: 1, category: 'breakfast', gallery: [
+            {
+                id: 1, image: require('../assets/breakfast/pexels-alexander-mils-2103949.jpg'), itemType: 'cereal', price: '75.00',
+                ingredient: 'granola, peach, plain yoghurt, cereal'
+            },
+            {
+                id: 2, image: require('../assets/breakfast/pexels-julian-jagtenberg-103124.jpg'), itemType: 'Pancake', price: '70.00',
+                ingredient: 'honey , strawberry, pancake'
+            },
+            {
+                id: 3, image: require('../assets/breakfast/pexels-pixabay-414555.jpg'), itemType: 'Cappuccino', price: '55.00',
+                ingredient: 'Milk, cappaccino, scones, cappuccino'
+            },
+        ]
+    },
+    {
+        id: 2, category: 'Lunch', gallery: [
+            {
+                id: 1, image: require('../assets/lunch/pexels-pixabay-461382.jpg'), itemType: 'Burger', price: '35.00',
+                ingredient: 'tomatoes, bread, cucumber, lettuce'
+            },
+            {
+                id: 2, image: require('../assets/lunch/pexels-robin-stickel-70497.jpg'), itemType: 'Burger', price: '70.00',
+                ingredient: 'chips, bread, burger, lettuce, creamy mayonnaise, jack cheese slice, gourmet patty'
+            },
+            {
+                id: 3, image: require('../assets/lunch/pexels-pixabay-315755.jpg'), itemType: 'Pizza', price: '60.00',
+                ingredient: 'chicken, cheese'
+            },
+        ]
+    },
+    {
+        id: 3, category: 'Dinner', gallery: [
+            {
+                id: 1, image: require('../assets/supper/OIP (19).jpg'), itemType: 'Pap', price: '40.00',
+                ingredient: 'pap, wors, chakalaka'
+            },
+            {
+                id: 2, image: require('../assets/supper/OIP (21).jpg'), itemType: 'Pap', price: '35.00',
+                ingredient: 'Pap and Steak'
+            },
+            {
+                id: 3, image: require('../assets/supper/R (3).jpg'), itemType: 'Pap', price: '34.00',
+                ingredient: 'Pap and tripe(mala mogodu)'
+            },
+        ]
+    },
+    {
+        id: 4, category: 'Bevarage', gallery: [
+            {
+                id: 1, image: require('../assets/bev/OIP (21).jpg'), itemType: 'Alcohol', price: '20.00',
+                ingredient: 'beer'
+            },
+            {
+                id: 2, image: require('../assets/bev/pexels-posawee-suwannaphati-391213.jpg'), itemType: 'Alcohol', price: '25.00',
+                ingredient: 'wine'
+            },
+            {
+                id: 3, image: require('../assets/bev/pexels-bruno-scramgnon-1337825.jpg'), itemType: 'Juice', price: '20.00',
+                ingredient: 'watermelon'
+            },
+        ]
     }
 
-    render() {
-        this.allProfucts()
+]
+
+export default function ResaurantItems () {
+    const products = useSelector((state) => state.reaturentFood.products)
+    const navigation = useNavigation();
+    const [LocalRestaurant]= useState(products)
+
+    function specificCategory(items) {
+        navigation.navigate('category_details', {data:items});
+    }
+        
         return (
             <TouchableOpacity activeOpacity={1} style={{ marginBottom: 30 }}>
-                {this.state.LocalRestaurant.map((restuarant, index) =>
-                    <View key={index} style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}>
-                        {this.state.LocalRestaurantImages.map((images, ximageId)=>(
-                            <View key={ximageId}>
-                                 <ResuatrantImage images={images.images} />
-                            </View>
-                        ))}
-                        
-                        <ResaurantInfo name={restuarant.name} ratings={restuarant.ratings} />
-                    </View>
-                )}
+                {LocalRestaurant.map((restuarant, index) =>(
+                     <TouchableOpacity onPress={() => specificCategory(restuarant)} key={index} >
+                        <View style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}>
+                            {/* <ResaurantInfo name={restuarant.name} ratings={restuarant.ratings} /> */}
+                            <Image source={restuarant.gallery[1].image} style={[{height:100,width:'95%'} ]} />
+                        </View>
+                        <Text>View More</Text>
+                    </TouchableOpacity>
+        ))}
             </TouchableOpacity>
         )
-    }
 }
 
 const ResuatrantImage = (props) => {

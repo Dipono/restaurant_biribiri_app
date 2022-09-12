@@ -1,28 +1,35 @@
 import { StyleSheet, Text, View, Image, Modal, TouchableOpacity } from 'react-native';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Cart from './cart'
-class Header extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            openMenu: false,
-            openCart: false,
-            openSearch: false,
-            openUser: false
-        }
-    }
+import NavMenu from './NavMenu';
+import { useDispatch, useSelector } from 'react-redux';
 
-    menuOpen(){
+//
+    
+function Header() {
+    // constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //         openMenu: false,
+    //         openCart: false,
+    //         openSearch: false,
+    //         openUser: false
+    //     }
+    // }
+
+    const [openMenu, setopenMenu] = useState(false);
+    const [openCart, setopenCart] = useState(false);
+    const [openSearch, setopenSearch] = useState(false);
+    const [openUser, setopenUser] = useState(false);
+
+
+   function menuOpen(){
         this.setState({ openMenu: true })
         console.log(this.state.openMenu)
     }
     
-    render() {
-        /* function menuOpen(){
-            setState({openMenu: true})
-            console.log('dhdhjdfhj')
-            console.log(openMenu)
-        } */
+        const coin = useSelector((state) => state.counter.coin)
+
         return (
             <View style={styles.main}>
                 <View style={styles.logo}>
@@ -31,27 +38,29 @@ class Header extends Component {
                 <View style={styles.nav}>
                     <Image source={require('../assets/images/search.png')} style={styles.img} />
                     <Image source={require('../assets/images/circle-user-solid.svg')} style={styles.img} />
-                    <TouchableOpacity onPress={() =>this.setState({ openCart: true })}><Image source={require('../assets/images/cart-shopping-solid.svg')} style={styles.img} /></TouchableOpacity>
-                    <TouchableOpacity onPress={() =>this.setState({ openMenu: true })}><Image source={require('../assets/images/menu.png')} style={styles.img}  /></TouchableOpacity>
+                    <TouchableOpacity onPress={() =>setopenCart(true)}><Image source={require('../assets/images/cart-shopping-solid.svg')} style={styles.img} />
+                        {/* <Text>{coin}</Text> */}
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() =>setopenMenu(true)}><Image source={require('../assets/images/menu.png')} style={styles.img}  /></TouchableOpacity>
                 </View>
-                <Modal transparent={true} visible={this.state.openMenu}>
+                <Modal transparent={true} visible={openMenu}>
                     <View style={styles.modal}>
                         <Text>menu</Text>
-                        <Text onPress={() =>this.setState({ openMenu: false })} style={styles.cancelModal}>X</Text>
+                        <Text onPress={() =>setopenMenu(false)} style={styles.cancelModal}>X</Text>
+                        <NavMenu />
                     </View>
                     
                 </Modal>
-                <Modal transparent={true} visible={this.state.openCart}>
-                    <View style={styles.modal}>
+                <Modal transparent={true} visible={openCart}>
+                    <View style={[styles.modal, styles.menumodal]}>
                         <Text>cart</Text>
-                        <Text onPress={() =>this.setState({ openCart: false })} style={styles.cancelModal}>X</Text>
+                        <Text onPress={() =>setopenCart(false)} style={styles.cancelModal}>X</Text>
                         <Cart />
                     </View>
                     
                 </Modal>
             </View>
         )
-    }
 }
 
 const styles = StyleSheet.create({
@@ -97,6 +106,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
+    menumodal:{
+        marginTop: 25
+    }
 })
 
 export default Header;

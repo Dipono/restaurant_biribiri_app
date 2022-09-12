@@ -13,14 +13,13 @@ const restaurentGallerySlice = createSlice({
       displayProduct: (state, action) => {
           state.products = action.payload;
       },
-      addedToCard: (state, action) => {
+      addedToCart: (state, action) => {
           state.cartItems.push(action.payload);
       },
-      removeToCard: (state, action) => {
-          state.cartItems = state.cartItems.filter((sta) => sta.id !== action.payload.id);
-          
+      removeToCart: (state, action) => {
+          state.cartItems = state.cartItems.filter((sta) => sta.id !== action.payload.id);          
       }        
   }
 })
-export const { displayProduct, addedToCard, removeToCard } = restaurentGallerySlice.actions
+export const { displayProduct, addedToCart, removeToCart } = restaurentGallerySlice.actions
 export default restaurentGallerySlice.reducer

@@ -15,12 +15,16 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          screenOptions={{
+          /*screenOptions={{
             headerShown: false
-          }}>
+          }}*/>
           <Stack.Screen
             name="home"
             component={Home}
+          />
+          <Stack.Screen
+            name="category_details"
+            component={FullDisplay}
           />
         </Stack.Navigator>
       </NavigationContainer>
